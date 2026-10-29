@@ -1,0 +1,6 @@
+.env
+private.key
+tests/__pycache__/test_app.cpython-314.pyc
+__pycache__/app.cpython-314.pyc
+__pycache__/config.cpython-314.pyc
+.DS_Store

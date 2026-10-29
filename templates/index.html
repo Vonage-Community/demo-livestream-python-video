@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Livestream</title>
+
+  <!-- Vonage Video JS SDK — needed for broadcaster view -->
+  <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+
+  <!-- hls.js — needed for viewer playback -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
+
+  <link rel="stylesheet" href="/static/styles.css" />
+
+</head>
+<body>
+  <h1>📡 Livestream</h1>
+
+  <!-- All views are rendered into this div by app.js -->
+  <div id="app"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
