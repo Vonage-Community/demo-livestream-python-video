@@ -47,9 +47,21 @@ function renderBroadcaster() {
     console.log('[broadcaster] Rendering broadcaster page');
   appEl().innerHTML = `
     <div id="video-container"></div>
-    <p id="status">Connecting to session…</p>
+    <p id="status">Connecting to session ...</p>
     <div class="controls">
-      <input id="broadcast-name" type="text" placeholder="Name your broadcast e.g. Weekly Standup" />
+      <input id="broadcast-name" type="text" placeholder="Name your broadcast" />
+    </div>
+    
+    <!-- RTMP section — optional -->
+    <details style="margin-top:1rem; color:#aaa;">
+      <summary style="cursor:pointer;">+ Stream to YouTube / Twitch (optional)</summary>
+      <div class="controls" style="margin-top:1rem; flex-direction:column; align-items:flex-start;">
+        <input id="rtmp-url"    type="text" placeholder="RTMP server URL e.g. rtmp://a.rtmp.youtube.com/live2" />
+        <input id="rtmp-key"   type="text" placeholder="Stream key" />
+      </div>
+    </details>
+
+    <div class="controls">
       <button id="go-live-btn" class="btn-live" disabled>Go Live</button>
       <button id="stop-btn"    class="btn-stop" disabled>Stop</button>
     </div>
@@ -129,16 +141,22 @@ async function initBroadcaster() {
   goLiveBtn.addEventListener('click', async () => {
     const name = document.getElementById('broadcast-name').value.trim()
                  || 'Untitled Broadcast';
+    const rtmpUrl    = document.getElementById('rtmp-url').value.trim();
+    const rtmpKey    = document.getElementById('rtmp-key').value.trim();
+
+    // Include rtmp in the payload only if both fields are filled in
+    const rtmp = rtmpUrl && rtmpKey
+        ? { server_url: rtmpUrl, stream_name: rtmpKey }
+        : null;
 
     goLiveBtn.disabled = true;
-    statusEl.textContent = '⏳ Starting broadcast…';
-    
-    
+    statusEl.textContent = '⏳ Starting broadcast ...';
+        
     try {
       const res = await fetch('/broadcast/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, rtmp }),
       });
       console.log('[broadcaster] Starting broadcast ...');
       if (!res.ok) {
@@ -250,7 +268,7 @@ function renderWatch(broadcastId, name) {
     <div id="video-container">
       <video id="video" controls autoplay playsinline muted></video>
     </div>
-    <p id="status">⏳ Loading stream…</p>
+    <p id="status">⏳ Loading stream ...</p>
     <div class="controls">
       <button class="btn-back" onclick="renderViewerList()">← Back to list</button>
     </div>

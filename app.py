@@ -8,6 +8,8 @@ from pydantic import BaseModel
 
 from config import VONAGE_APPLICATION_ID, VONAGE_PRIVATE_KEY_PATH
 
+from typing import Optional
+
 from vonage import Vonage, Auth
 from vonage_video import SessionOptions, MediaMode, TokenOptions, TokenRole
 from vonage_video.models import (CreateBroadcastRequest,
@@ -15,7 +17,8 @@ from vonage_video.models import (CreateBroadcastRequest,
                                  BroadcastHls,
                                  ComposedLayout,
                                  LayoutType,
-                                 VideoResolution)
+                                 VideoResolution,
+                                 BroadcastRtmp)
 
 import logging
 
@@ -45,8 +48,14 @@ VONAGE_VIDEO = VONAGE_CLIENT.video
 SESSION = {'session_id': None,
            'broadcasts': {}} # { broadcast_id: { "name": "...", "hlsUrl": None } }
 
+
+class RtmpTarget(BaseModel):
+    server_url: str
+    stream_name: str
+
 class StartBroadcastRequest(BaseModel):
     name: str
+    rtmp: Optional[RtmpTarget] = None  # optional — HLS-only if not provided
 
 #Routes
 @app.get('/')
@@ -103,16 +112,32 @@ async def start_broadcast(body: StartBroadcastRequest):
     logger.info("Starting broadcast ...")
 
     broadcast_name = body.name
+    rtmp_outputs = []
     session_id = SESSION.get('session_id', None)
+    rtmp = None
 
     # A broadcast cannot be started if a session does not exist
     if not session_id:
         raise HTTPException(status_code=400, detail="No session exists. Call POST /session first.")
     
+    if body.rtmp:
+        logger.info("RTMP settings provided ...")
+        rtmp_server_url = body.rtmp.server_url
+        rtmp_stream_name = body.rtmp.stream_name
+        rtmp_outputs = [
+            BroadcastRtmp(
+                server_url=rtmp_server_url,
+                stream_name=rtmp_stream_name,
+            )
+        ]
+        rtmp = {'server_url': rtmp_server_url,
+                'stream_name': rtmp_stream_name}
+    
     broadcast_options = CreateBroadcastRequest(
         session_id=session_id,
         outputs=BroadcastOutputSettings(
-            hls=BroadcastHls()
+            hls=BroadcastHls(),
+            rtmp=rtmp_outputs if rtmp_outputs else None,
         ),
         resolution=VideoResolution.RES_1280x720,
         layout=ComposedLayout(type=LayoutType.BEST_FIT),
@@ -124,7 +149,7 @@ async def start_broadcast(body: StartBroadcastRequest):
     broadcast_id = broadcast_response.id
     broadcast_status = broadcast_response.status
     
-    SESSION['broadcasts'][broadcast_id] = {'name': broadcast_name, 'hlsUrl': None}
+    SESSION['broadcasts'][broadcast_id] = {'name': broadcast_name, 'hlsUrl': None, 'rtmp': rtmp}
 
     logger.info(f"Broadcast: {broadcast_id} successfully started and added to in-memory storage: {SESSION['broadcasts'][broadcast_id]}")
 
