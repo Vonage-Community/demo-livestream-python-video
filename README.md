@@ -116,6 +116,8 @@ fastapi dev app.py
 
 Navigate to `http://127.0.0.1:8000/` (or your ngrok public URL). You will be presented with two options: **Broadcast a Livestream** or **View a Livestream**.
 
+![The home view for the sample application displaying the options to either Broadcast a Livestream or View a Livestream.](static/images/202611_screenshot_livestreaming-python_index-page.png)
+
 ### Start a Livestream
 
 1. Select **Broadcast a Livestream**
@@ -123,6 +125,8 @@ Navigate to `http://127.0.0.1:8000/` (or your ngrok public URL). You will be pre
 3. Name your broadcast and select **Go Live** to begin livestreaming
 4. Check the console logs for polling updates — once the status changes to `ready`, your broadcast is live
 5. Optionally, provide RTMP settings to simultaneously stream to YouTube or Twitch
+
+![The broadcaster view displaying a preview of the media capture and the options to name the livestream and a Go Live button.](static/images/202611_screenshot_livestreaming-python_broadcaster.png)
 
 ### View a Livestream
 
@@ -133,6 +137,8 @@ Navigate to `http://127.0.0.1:8000/` (or your ngrok public URL). You will be pre
 > Note: HLS has a 15–20 second initialization delay. The stream will not be available until the broadcast status updates to `ready`.
 
 If you provided RTMP settings when starting your broadcast, navigate to that platform (YouTube Studio or your Twitch dashboard) to confirm the stream is live there as well.
+
+![The viewer view displaying the livestream.](static/images/202611_screenshot_livestreaming-python_viewer.png)
 
 ## Troubleshooting
 
