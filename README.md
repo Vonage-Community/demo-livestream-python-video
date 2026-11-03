@@ -15,7 +15,7 @@ A minimal livestreaming web application that demonstrates how to embed live vide
 
 ## Architecture
 
-```
+```text
 Frontend (JavaScript + Vonage Video JS SDK)
   └─ Broadcaster UI: captures camera/mic via WebRTC, connects to Vonage session, publishes stream
   └─ Viewer UI: polls for HLS URL, plays stream via hls.js
@@ -36,7 +36,7 @@ The backend uses the Vonage Python SDK to control the full broadcast lifecycle. 
 
 ## Project Structure
 
-```
+```text
 .
 ├── server.py              # FastAPI app — routes, session, token, broadcast lifecycle
 ├── static/
@@ -56,9 +56,9 @@ The backend uses the Vonage Python SDK to control the full broadcast lifecycle. 
 ### Prerequisites
 
 * Python 3.10+
-* A [Vonage API account](https://developer.vonage.com/en/vonage-business-cloud/getting-started/create-a-developer-account)
-* [ngrok](https://developer.vonage.com/en/blog/local-development-nexmo-ngrok-tunnel-dr) (optional — required for testing across devices)
-* A YouTube or Twitch account (optional — required for RTMP streaming)
+* A [Vonage API account](https://vonage.dev/4z9aQsn)
+* [ngrok](https://vonage.dev/4d9waov) (optional — required for testing across devices)
+* A [YouTube](https://support.google.com/youtube/answer/2907883?hl=en#) or [Twitch](https://help.twitch.tv/s/article/twitch-stream-key-faq?language=en_US) account (optional — required for RTMP streaming)
 
 ### 1. Clone the repo and set up your environment
 
@@ -71,11 +71,11 @@ python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\acti
 pip install -r requirements.txt
 ```
 
-Learn more about Python virtual environments in this [blog post](https://developer.vonage.com/en/blog/a-comprehensive-guide-on-working-with-python-virtual-environments).
+Learn more about Python virtual environments in this [blog post](https://vonage.dev/42D6eeT).
 
 ### 2. Create a Vonage Video Application
 
-1. Log in to the [Vonage Dashboard](https://dashboard.nexmo.com)
+1. Log in to the [Vonage Dashboard](https://vonage.dev/4AhETic)
 2. Go to **Applications** and create a new application
 3. Enable the **Video** capability
 4. Click **Generate public and private key** -- once the file `private.key` is downloaded, move it to the project root directory
@@ -138,7 +138,7 @@ If you provided RTMP settings when starting your broadcast, navigate to that pla
 
 Because this project uses FastAPI, an interactive API explorer is available at:
 
-```
+```bash
 http://127.0.0.1:8000/docs
 ```
 
@@ -146,10 +146,10 @@ The Swagger UI lists every route in the application along with expected request 
 
 ## Resources and References
 
-* [Vonage Video API Overview](https://developer.vonage.com/en/video/overview): The starting point for the Video API — covers real-time video, screen sharing, broadcasting, recording, and live captions
-* [Live Streaming Broadcasts Guide](https://developer.vonage.com/en/video/guides/broadcast/streaming): Full reference for starting, stopping, configuring layouts, and monitoring HLS and RTMP broadcasts
-* [Vonage Video API Broadcast Overview](https://developer.vonage.com/en/video/guides/broadcast/overview): Compares live interactive video and live streaming broadcasts; covers HLS vs. RTMP vs. WebRTC and how each relates to the Vonage Media Router
-* [Python Server SDK — Working with Broadcasts](https://developer.vonage.com/en/video/server-sdks/python): Full SDK reference with code samples for `start_broadcast`, `stop_broadcast`, and layout configuration
-* [Build a Python Video Conferencing Web App With Flask and Vonage](https://developer.vonage.com/en/blog/build-a-video-conferencing-web-app-with-vonage-and-flask): Prerequisite tutorial covering Video API fundamentals — sessions, tokens, and WebRTC — with Python
-* [Live Captions, Moderation, and Recording With Python and Vonage](https://developer.vonage.com/en/blog/implementing-live-captions-moderation-and-recording-with-vonage): Companion post extending the Python Video API foundation with live captioning, moderation, and archiving
-* [Connect Your Local Development Server Using an Ngrok Tunnel](https://developer.vonage.com/en/blog/local-development-nexmo-ngrok-tunnel-dr): How to expose your local server to a public URL for testing and sharing
+* [Vonage Video API Overview](https://vonage.dev/4txlo1b): The starting point for the Video API — covers real-time video, screen sharing, broadcasting, recording, and live captions
+* [Live Streaming Broadcasts Guide](https://vonage.dev/4yVXfTG): Full reference for starting, stopping, configuring layouts, and monitoring HLS and RTMP broadcasts
+* [Vonage Video API Broadcast Overview](https://vonage.dev/4Agawb3): Compares live interactive video and live streaming broadcasts; covers HLS vs. RTMP vs. WebRTC and how each relates to the Vonage Media Router
+* [Python Server SDK — Working with Broadcasts](https://vonage.dev/4zqdedZ): Full SDK reference with code samples for `start_broadcast`, `stop_broadcast`, and layout configuration
+* [Build a Python Video Conferencing Web App With Flask and Vonage](https://vonage.dev/48yPEQg): Prerequisite tutorial covering Video API fundamentals — sessions, tokens, and WebRTC — with Python
+* [Live Captions, Moderation, and Recording With Python and Vonage](https://vonage.dev/4aJBxcw): Companion post extending the Python Video API foundation with live captioning, moderation, and archiving
+* [Connect Your Local Development Server Using an Ngrok Tunnel](https://vonage.dev/4d9waov): How to expose your local server to a public URL for testing and sharing
