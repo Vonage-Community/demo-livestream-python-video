@@ -9,7 +9,7 @@
 let otSession   = null;   // Vonage session object
 let otPublisher = null;   // Vonage publisher object
 let pollInterval = null;  // setInterval handle for status polling
-let broadcastId = null;
+let broadcastId = null;   // broadcastId for polling, joining, and stopping a broadcast     
 
 // Get the #app div
 const appEl = () => document.getElementById('app');
