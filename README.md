@@ -2,8 +2,6 @@
 
 A minimal livestreaming web application that demonstrates how to embed live video broadcasting into your own application using Python, FastAPI, and the Vonage Video API.
 
-![Vonage Video API livestreaming demo](https://developer.vonage.com/images/vonage-logo.png)
-
 ## How It Works
 
 * User navigates to the app and chooses to broadcast a livestream or view one
