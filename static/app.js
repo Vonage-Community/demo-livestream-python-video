@@ -270,7 +270,7 @@ function renderWatch(broadcastId, name) {
     </div>
     <p id="status">⏳ Loading stream ...</p>
     <div class="controls">
-      <button class="btn-back" onclick="renderViewerList()">← Back to list</button>
+      <button class="btn-back" onclick="renderBroadcastList()">← Back to list</button>
     </div>
   `;
 
